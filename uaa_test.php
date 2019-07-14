@@ -1,6 +1,6 @@
 <?php
 
-include "ua.php";
+include "uaa.php";
 
 print_r($_SERVER["HTTP_USER_AGENT"]);
 echo "\n";
