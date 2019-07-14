@@ -45,6 +45,7 @@ function analyse_user_agent($user_agent) {
                 $result["browser"]["version"] = $browser[1];
                 $os = preg_split("/ \d/", preg_replace("/ nt/i", "",$platforms[2]));
                 $osv = preg_split("/ /",$platforms[2]);
+                $result["device"]["name"] = "pc";
             } else {
                 $result["browser"]["name"] = "msie";
                 $version = preg_split("/:/", $platforms[array_key_last($platforms)]);
