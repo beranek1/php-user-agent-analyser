@@ -42,7 +42,7 @@ function analyse_user_agent($user_agent) {
                 $result["browser"]["name"] = $browser[0];
                 $result["browser"]["version"] = $browser[1];
             } else {
-                $result["browser"]["name"] = "MSIE";
+                $result["browser"]["name"] = "msie";
                 $version = preg_split("/:/", $platforms[array_key_last($platforms)]);
                 $result["browser"]["version"] = $version[1];
             }
