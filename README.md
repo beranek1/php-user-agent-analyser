@@ -1,5 +1,6 @@
 # UAA: User Agent Analyser
-Optimised for Gecko (Firefox) and AppleWebKit (Chrome, Safari, Edge) user agents, but also supports most of the others.
+A php function/library for analysing user agents.
+Optimised for Gecko (Firefox), AppleWebKit (Chrome, Safari, Edge) and Trident (Internet Explorer) user agents, but also supports most of the others.
 Developed for https://webanalytics.one
 
 ## Usage
