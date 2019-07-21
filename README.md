@@ -15,5 +15,5 @@ $browser_version = $uaa["browser"]["version"];
 
 ## Example return value
 ```php
-array ( "browser" => array ( "name" => "Firefox", "version" => "68.0" ), "os" => Array ( "name" => "Windows", "version" => "10.0" ), "device" => array ( "name" => "pc" ) ) 
+array ( "os" => array ( "name" => "Windows", "version" => "10.0" ), "browser" => array ( "name" => "Firefox", "version" => "68.0" ) )
 ```
