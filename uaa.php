@@ -92,5 +92,7 @@ function analyse_user_agent($user_agent) {
         $result["browser"]["name"] = $browser[0];
         $result["browser"]["version"] = $browser[1];
     }
+    $result["is_mobile"] = preg_match('/mobile/i', $user_agent) ? 1 : 0;
+    $result["is_bot"] = (preg_match('/bot/i', $user_agent) || preg_match('/crawler/i', $user_agent)) ? 1 : 0;
     return $result;
 }
