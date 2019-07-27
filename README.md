@@ -3,7 +3,7 @@ A php function/library for analysing user agents.
 
 Optimised for Gecko (Firefox), AppleWebKit (Chrome, Safari, Edge) and Trident (Internet Explorer) user agents, but also supports most of the others.
 
-Developed for https://webanalytics.one
+Integrated in https://webanalytics.one
 
 ## Usage
 ```php
@@ -12,6 +12,11 @@ $uaa = analyse_user_agent($_SERVER["HTTP_USER_AGENT"]);
 $browser_name = $uaa["browser"]["name"];
 $browser_version = $uaa["browser"]["version"];
 ```
+
+## Features
+* Detects browser name and version
+* Detects operation system (OS) name and version
+* Detects device name/identifier if given
 
 ## Example return value
 ```php
