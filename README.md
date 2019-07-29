@@ -9,7 +9,14 @@ include "uaa.php"
 $uaa = analyse_user_agent($_SERVER["HTTP_USER_AGENT"]);
 $browser_name = $uaa["browser"]["name"];
 $browser_version = $uaa["browser"]["version"];
+$os_name = $uaa["os"]["name"];
+$os_version = $uaa["os"]["version"];
+$device = $uaa["device"]["name"];
+$is_mobile = $uaa["is_mobile"];
+$is_bot = $uaa["is_bot"];
 ```
+
+Try it out with test.php.
 
 ## Features
 * Detects browser name and version
