@@ -52,6 +52,9 @@ function analyse_user_agent($user_agent) {
             if(preg_match("/xbox/i", $platforms[array_key_last($platforms)])) {
                 $result["device"]["name"] = $platforms[array_key_last($platforms)];
             }
+            if(isset($platforms[2]) && preg_match("/x\d[\d]*/", $platforms[2])) {
+                $result["device"]["cpu"] = $platforms[2];
+            }
         } else if(preg_match("/linux/i", $platforms[0])) {
             $i = preg_match("/u/i", $platforms[1]) ? 2 : 1;
             $os = preg_split("/ \d/",$platforms[$i]);
@@ -59,6 +62,9 @@ function analyse_user_agent($user_agent) {
                 $osv = preg_split("/ /",$platforms[$i]);
             } else {
                 $os = preg_split("/ /",$platforms[0]);
+                if(isset($os[1])) {
+                    $result["device"]["cpu"] = $os[1];
+                }
             }
             foreach ($platforms as $property) {
                 if(preg_match("/build/i", $property)) {
@@ -68,6 +74,9 @@ function analyse_user_agent($user_agent) {
             }
         } else if(preg_match("/linux/i", $platforms[1]) || preg_match("/cros/i", $platforms[1]) || preg_match("/ubuntu/i", $platforms[1])) {
             $os = preg_split("/ /",$platforms[1]);
+            if(isset($os[1])) {
+                $result["device"]["cpu"] = $os[1];
+            }
         } else if(preg_match("/macintosh/i", $platforms[0])) {
             $os = preg_split("/ \d/",preg_replace("/intel /i", "", $platforms[1]));
             $osv = preg_split("/ /",$platforms[1]);
