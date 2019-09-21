@@ -2,7 +2,7 @@
 /*
 #-----------------------------------------
 | UUA: User Agent Analyser
-| https://github.com/beranek1/UAA
+| https://uaa.beranek.one
 #-----------------------------------------
 | made by beranek1
 | https://github.com/beranek1
