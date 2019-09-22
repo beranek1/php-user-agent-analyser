@@ -9,6 +9,15 @@
 #-----------------------------------------
 */
 
+if (!function_exists("array_key_last")) {
+    function array_key_last($array) {
+        if (!is_array($array) || empty($array)) {
+            return NULL;
+        }
+        return array_keys($array)[count($array)-1];
+    }
+}
+
 function analyse_user_agent($user_agent) {
     $result = array();
     $gecko = preg_match("/Mozilla\/\d[\d.]* \([A-Za-z0-9_.\- ;:\/]*\) Gecko\/\d+/i", $user_agent);
