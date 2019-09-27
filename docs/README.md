@@ -1,5 +1,5 @@
 # UAA: User Agent Analyser
-A php function/library for analysing user agents.
+Open-source PHP library for analysing user agents.
 
 Optimised for Gecko (Firefox), AppleWebKit (Chrome, Safari, Edge) and Trident (Internet Explorer) user agents, but also supports most of the others.
 
