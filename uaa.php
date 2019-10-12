@@ -24,7 +24,7 @@ function analyse_user_agent($user_agent) {
     $webkit = preg_match("/Mozilla\/\d[\d.]* \([A-Za-z0-9_.\- ;:\/]*\) AppleWebKit\/\d[\d.]* \(KHTML, like Gecko\)/i", $user_agent);
     if(preg_match_all("/\w+\/\d[\d.]*/", $user_agent, $matches)) {
         $browser = preg_split("/\//",$matches[0][array_key_last($matches[0])]);
-        $trident = (preg_match("/trident/i", $browser[0]) && !$gecko && !$webkit);
+        $trident = preg_match("/trident/i", $browser[0]) && !$gecko && !$webkit;
         if($webkit) {
             if(preg_match("/safari/i", $browser[0])) {
                 $browser = preg_split("/\//",$matches[0][2]);

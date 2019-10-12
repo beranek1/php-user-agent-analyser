@@ -24,8 +24,10 @@ Try it out with test.php.
 * Detects operation system (OS) name and version
 * Detects device name/identifier and cpu type if given
 
-## Example return value
+## Example return values
 ```php
 //Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101 Firefox/68.0
-array ( "device" => array ( "cpu" => "x64" ), "os" => array ( "name" => "Windows", "version" => "10.0" ), "browser" => array ( "name" => "Firefox", "version" => "68.0" ), "is_mobile" => 0, "is_bot" => 0)
+array ( "device" => array ( "cpu" => "x64" ), "os" => array ( "name" => "Windows", "version" => "10.0" ), "browser" => array ( "name" => "Firefox", "version" => "68.0" ), "is_mobile" => 0, "is_bot" => 0);
+//Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.2 Safari/605.1.15
+array ( "device" => array ( "name" => "Macintosh" ), "os" => array ( "name" => "Mac OS X", "version" => "10_15" ), "browser" => array ( "name" => "Safari", "version" => "605.1.15" ), "is_mobile" => 0, "is_bot" => 0 );
 ```
