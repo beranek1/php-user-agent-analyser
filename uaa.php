@@ -114,3 +114,108 @@ function analyse_user_agent($user_agent) {
     $result["is_bot"] = (preg_match('/bot/i', $user_agent) || preg_match('/crawler/i', $user_agent)) ? 1 : 0;
     return $result;
 }
+
+class user_agent_analyser {
+    private $user_agent;
+    private $gecko = null;
+    private $webkit = null;
+    private $trident = null;
+    private $browser = null;
+    private $platform = null;
+
+    function get_user_agent() {
+        return $this->user_agent;
+    }
+
+    function is_gecko() {
+        if($this->gecko == null) {
+            $this->gecko = preg_match("/Mozilla\/\d[\d.]* \([A-Za-z0-9_.\- ;:\/]*\) Gecko\/\d+/i", $this->user_agent);
+        }
+
+        return $this->gecko;
+    }
+
+    function is_webkit() {
+        if($this->webkit == null) {
+            $this->webkit = preg_match(
+                "/Mozilla\/\d[\d.]* \([A-Za-z0-9_.\- ;:\/]*\) AppleWebKit\/\d[\d.]* \(KHTML, like Gecko\)/i",
+                $this->user_agent
+            );
+        }
+
+        return $this->webkit;
+    }
+
+    private function get_browser_array() {
+        if($this->browser == null) {
+            if (preg_match_all("/\w+\/\d[\d.]*/", $this->user_agent, $matches)) {
+                $this->browser = preg_split("/\//", $matches[0][array_key_last($matches[0])]);
+                $this->trident = preg_match("/trident/i", $this->browser[0]) && !$this->is_gecko() && !$this->is_webkit();
+                if ($this->webkit) {
+                    if (preg_match("/safari/i", $this->browser[0])) {
+                        $this->browser = preg_split("/\//", $matches[0][2]);
+                        $i = 3;
+                        while ((preg_match("/version/i", $this->browser[0]) || preg_match("/mobile/i", $this->browser[0])) && isset($matches[0][$i])) {
+                            $this->browser = preg_split("/\//", $matches[0][$i]);
+                            $i++;
+                        }
+                    }
+                } else if($this->trident) {
+                    $this->browser = preg_split("/ /",$this->get_platform_array()[1]);
+                    if(!preg_match("/msie/i", $this->browser[0])) {
+                        $this->browser[0] = "msie";
+                        $version = preg_split("/:/", $this->platform[array_key_last($this->platform)]);
+                        $this->browser[1] = $version[1];
+                    }
+                }
+            }
+        }
+
+        return $this->browser;
+    }
+
+    private function get_platform_array()
+    {
+        if ($this->platform == null) {
+            if(preg_match("/\([A-Za-z0-9_.\- ;:\/]*\)/", $this->user_agent, $match)) {
+                $this->platform = preg_split("/; /",
+                    preg_replace("/\)/", "", preg_replace("/\(/", "", $match[0]))
+                );
+            }
+        }
+        return $this->platform;
+    }
+
+    function is_trident() {
+        if($this->trident == null) {
+            $this->get_browser_array();
+        }
+        return $this->trident;
+    }
+
+    function get_browser_name() {
+        if($this->browser == null) {
+            if($this->get_browser_array() == null) {
+                return null;
+            }
+        }
+
+        return $this->browser[0];
+    }
+
+    function get_browser_version() {
+        if($this->browser == null) {
+            if($this->get_browser_array() == null) {
+                return null;
+            }
+        }
+
+        return $this->browser[1];
+    }
+
+    function get_browser() { return $this->get_browser_name(); }
+
+    function __construct($user_agent) {
+        $this->user_agent = $user_agent;
+    }
+}
