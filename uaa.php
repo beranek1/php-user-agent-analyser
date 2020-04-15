@@ -124,6 +124,8 @@ class user_agent_analyser {
     private $platform = null;
     private $mobile = null;
     private $bot = null;
+    private $os_name = null;
+    private $os_version = null;
 
     function get_user_agent() {
         return $this->user_agent;
@@ -227,6 +229,39 @@ class user_agent_analyser {
     }
 
     function get_browser() { return $this->get_browser_name(); }
+
+    function get_operating_system_name() {
+        if($this->platform == null && $this->get_platform_array() == null) {
+            return null;
+        }
+        if($this->os_name == null) {
+            if ($this->is_trident() && preg_match("/msie/i", $this->get_browser_name())) {
+                $this->os_name = preg_split("/ \d/", preg_replace("/ nt/i", "", $this->platform[2]));
+            }
+            if (preg_match("/windows/i", $this->platform[0])) {
+                $this->os_name = preg_split("/ \d/", preg_replace("/ nt/i", "", $this->platform[0]));
+            } else if (preg_match("/linux/i", $this->platform[0])) {
+                $i = preg_match("/u/i", $this->platform[1]) ? 2 : 1;
+                $this->os_name = preg_split("/ \d/", $this->platform[$i])[0];
+                if (!preg_match("/android/i", $this->os_name)) {
+                    $this->os_name = preg_split("/ /", $this->platform[0])[0];
+                }
+            } else if (preg_match("/linux/i", $this->platform[1])
+                || preg_match("/cros/i", $this->platform[1])
+                || preg_match("/ubuntu/i", $this->platform[1])) {
+                $this->os_name = preg_split("/ /", $this->platform[1])[0];
+            } else if (preg_match("/macintosh/i", $this->platform[0])) {
+                $this->os_name = preg_split("/ \d/", preg_replace("/intel /i", "", $this->platform[1]))[0];
+            } else if (preg_match("/iphone/i", $this->platform[0])
+                || preg_match("/ipad/i", $this->platform[0])
+                || preg_match("/ipod/i", $this->platform[0])) {
+                $this->os_name = preg_split("/ \d/", preg_replace("/cpu /i", "", $this->platform[1]))[0];
+            } else if (preg_match("/android/i", $this->platform[0])) {
+                $this->os_name = preg_split("/ \d/", $this->platform[0])[0];
+            }
+        }
+        return $this->os_name;
+    }
 
     function __construct($user_agent) {
         $this->user_agent = $user_agent;
